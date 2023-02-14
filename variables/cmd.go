@@ -7,16 +7,19 @@ import (
 
 func BasicCMD(cmd *exec.Cmd) *exec.Cmd {
 	cmd.Env = BasicEnv()
+	cmd.Dir = TEST_NETWORK_PATH
 	return cmd
 }
 
 func FirstOrgCmd(cmd *exec.Cmd) *exec.Cmd {
 	cmd.Env = FirstOrgEnv()
+	cmd.Dir = TEST_NETWORK_PATH
 	return cmd
 }
 
 func SecondOrgCmd(cmd *exec.Cmd) *exec.Cmd {
 	cmd.Env = SecondOrgEnv()
+	cmd.Dir = TEST_NETWORK_PATH
 	return cmd
 }
 

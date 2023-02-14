@@ -8,10 +8,6 @@ import (
 
 func BasicEnv() []string {
 	pwd := os.Getenv("PWD")
-	pth := os.Getenv("PATH")
-	if err := os.Setenv("PATH", path.Join(pwd, BINARY_PATH)+":"+pth); err != nil {
-		log.Fatal(err)
-	}
 	env := os.Environ()
 	basicVars := []string{
 		`CORE_PEER_TLS_ENABLED=` + CORE_PEER_TLS_ENABLED,
@@ -45,4 +41,12 @@ func SecondOrgEnv() []string {
 	}
 	env = append(env, secondOrgEnv...)
 	return env
+}
+
+func SetBasicEnv() {
+	pwd := os.Getenv("PWD")
+	pth := os.Getenv("PATH")
+	if err := os.Setenv("PATH", path.Join(pwd, BINARY_PATH)+":"+pth); err != nil {
+		log.Fatal(err)
+	}
 }

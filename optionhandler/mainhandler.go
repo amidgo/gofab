@@ -10,6 +10,7 @@ import (
 
 func Handle(option string) {
 	var opt variables.Option = variables.Option(option)
+	variables.SetBasicEnv()
 	switch opt {
 	case variables.Launch:
 		variables.RunBasicCmd(commands.Stop())
@@ -35,6 +36,10 @@ func Handle(option string) {
 		deploy()
 	case variables.UpdateChaincode:
 		update()
+	case variables.CallFun:
+		variables.RunFirstOrgCmd(commands.CallFun())
+	case variables.TransactFun:
+		variables.RunFirstOrgCmd(commands.TransactFun())
 	case variables.UpdateExample:
 		fmt.Println(variables.EXAMPLE_UPDATE_COMMAND)
 	case variables.DeployExample:

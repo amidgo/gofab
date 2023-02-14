@@ -19,6 +19,8 @@ func main() {
 	flag.StringVar(&variables.NAME, "n", variables.DEFAULT_NAME, "name for chaincode package")
 	flag.StringVar(&variables.SEQUENCE, "seq", variables.DEFAULT_SEQUENCE, "count of contracts")
 	flag.StringVar(&variables.INIT_FUN, "init-fun", variables.DEFAULT_INIT_FUN, "init function of chaincode")
+	flag.StringVar(&variables.FUN, "fun", "{}", "callable funtion of chaincode")
+	flag.StringVar(&variables.TEST_NETWORK_PATH, "network-path", "", "path to test-network directory")
 	flag.Parse()
 	variables.LABEL = variables.NAME + "_" + variables.SEQUENCE
 	optionhandler.Handle(option)

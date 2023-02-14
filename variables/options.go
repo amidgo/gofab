@@ -14,4 +14,6 @@ const (
 	UpdateChaincode      Option = "update"
 	DeployExample        Option = "deploy-example"
 	UpdateExample        Option = "update-example"
+	CallFun              Option = "call"
+	TransactFun          Option = "transact"
 )

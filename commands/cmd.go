@@ -10,7 +10,7 @@ import (
 )
 
 func Launch() *exec.Cmd {
-	return exec.Command(variables.NETWORK_SCRIPT, "up", "createChannel", "-c", variables.CHANNEL_NAME)
+	return exec.Command(variables.NETWORK_SCRIPT, "up", "createChannel", "-c", variables.CHANNEL_NAME, "-ca")
 }
 func Stop() *exec.Cmd {
 	return exec.Command(variables.NETWORK_SCRIPT, "down")
@@ -36,4 +36,25 @@ func Commit() *exec.Cmd {
 func InvokeChaincode() *exec.Cmd {
 	pwd := os.Getenv("PWD")
 	return exec.Command("peer", "chaincode", "invoke", "-o", "localhost:7050", "--ordererTLSHostnameOverride", "orderer.example.com", "--tls", "--cafile", path.Join(pwd, "organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"), "-C", variables.CHANNEL_NAME, "-n", variables.NAME, "--peerAddresses", "localhost:7051", "--tlsRootCertFiles", path.Join(pwd, "organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"), "--peerAddresses", "localhost:9051", "--tlsRootCertFiles", path.Join(pwd, "organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"), "-c", fmt.Sprintf(`{"function":"%s","Args":[]}`, variables.INIT_FUN))
+}
+
+func CallFun() *exec.Cmd {
+	return exec.Command("peer", "chaincode", "query", "-C", variables.CHANNEL_NAME, "-n", variables.NAME, "-c", variables.FUN)
+}
+
+func TransactFun() *exec.Cmd {
+	pwd := os.Getenv("PWD")
+	return exec.Command("peer", "chaincode", "invoke", "-o", "localhost:7050", "--ordererTLSHostnameOverride", "orderer.example.com", "--tls", "--cafile", path.Join(pwd, "organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"), "-C", variables.CHANNEL_NAME, "-n", variables.NAME, "--peerAddresses", "localhost:7051", "--tlsRootCertFiles", path.Join(pwd, "organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"), "--peerAddresses", "localhost:9051", "--tlsRootCertFiles", path.Join(pwd, "organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"), "-c", variables.FUN)
+}
+
+func RemoveDirectories() *exec.Cmd {
+	return exec.Command("rm", "-r", "wallet")
+}
+
+func EnrollAdmin() *exec.Cmd {
+	return exec.Command("node", "enrollAdmin.js")
+}
+
+func RegisterAdmin() *exec.Cmd {
+	return exec.Command("node", "registerUser.js")
 }

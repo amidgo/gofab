@@ -13,8 +13,10 @@ func update() {
 	}
 	variables.RunBasicCmd(commands.Build())
 	variables.RunFirstOrgCmd(commands.OrgInstall())
+	variables.SetPackageID(variables.FirstOrgCmd(commands.CheckInstalled()))
 	variables.RunSecondOrgCmd(commands.OrgInstall())
 	variables.RunFirstOrgCmd(commands.OrgApprove())
 	variables.RunSecondOrgCmd(commands.OrgApprove())
 	variables.RunFirstOrgCmd(commands.Commit())
+	variables.RunFirstOrgCmd(commands.InvokeChaincode())
 }
